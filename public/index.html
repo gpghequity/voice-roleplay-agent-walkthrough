@@ -774,6 +774,9 @@ function goSetup() {
   clearTimeout(watchTimer);
   showScreen('setup');
 }
+
+// Auto-bypass password — auth is open
+window.addEventListener('DOMContentLoaded', () => { loadSetup(); showScreen('setup'); });
 </script>
 </body>
 </html>
