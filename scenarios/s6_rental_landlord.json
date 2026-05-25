@@ -1,0 +1,73 @@
+{
+  "id": "s6",
+  "title": "Rental Showing — Representing Landlord",
+  "difficulty": "Beginner — Intermediate",
+  "property": {
+    "address": "Unit 2B — 318 Chesapeake Street, Lancaster, PA 17602",
+    "type": "Rental Unit — 2BR Apartment",
+    "beds": 2,
+    "baths": 1,
+    "sqft": 780,
+    "year_built": 1972,
+    "monthly_rent": 895
+  },
+  "representation_side": "landlord",
+  "representation_label": "Representing Landlord",
+  "features": [
+    "Hardwood floors throughout main living area",
+    "Updated bathroom (2020)",
+    "Rear-facing unit — quieter than street-facing",
+    "On-site laundry in basement"
+  ],
+  "issues": [
+    {
+      "id": "window_lock",
+      "item": "Bedroom window does not lock properly — latch is broken, window closes but does not secure",
+      "classification": "material_fact",
+      "pa_basis": "Habitability defect — landlord has a duty to disclose known security and safety conditions that affect a tenant's right to safe premises (PA Landlord-Tenant Act, 68 P.S. § 250.101 et seq.)",
+      "seller_agent_action": "N/A",
+      "buyer_agent_action": "N/A",
+      "landlord_agent_action": "Must disclose the defect proactively. Advise landlord to repair before occupancy or disclose and offer a rent credit. Cannot conceal a known safety/habitability issue."
+    },
+    {
+      "id": "older_heat",
+      "item": "Baseboard electric heat — original to building (1972), functional but higher operating cost than modern systems",
+      "classification": "minor_issue",
+      "pa_basis": "Older functional system — no habitability defect, but age and operating cost are relevant to tenant decision",
+      "seller_agent_action": "N/A",
+      "buyer_agent_action": "N/A",
+      "landlord_agent_action": "Disclose system age and heating type. Provide honest estimate of winter utility costs if asked. Not a defect but relevant to tenant's budget."
+    },
+    {
+      "id": "cosmetic_wear",
+      "item": "Scuff marks on hallway walls, minor paint chips near kitchen entry — cosmetic wear from previous tenant",
+      "classification": "minor_issue",
+      "pa_basis": "Normal wear and tear — not a habitability issue; cosmetic condition appropriate to disclose honestly",
+      "seller_agent_action": "N/A",
+      "buyer_agent_action": "N/A",
+      "landlord_agent_action": "Acknowledge honestly if tenant mentions it. Note whether landlord plans to touch up before move-in or is offering unit as-is."
+    }
+  ],
+  "client_persona": {
+    "name": "Danielle Torres",
+    "role": "prospective tenant — asks directly about any issues with the unit",
+    "framing": "Danielle is a single professional looking for a safe, quiet unit. She has viewed four apartments this week and is organized. She asks direct questions and expects straight answers. She is particularly focused on safety because she lives alone.",
+    "opening_lines": [
+      "Hi, I'm Danielle. Thanks for showing me this one. Before we walk through — is there anything I should know upfront about the unit? Any issues or things being repaired?",
+      "Hi — Danielle Torres. I like to ask before I walk through: is there anything not working or being fixed that I should know about?"
+    ],
+    "behavioral_rules": [
+      "Ask a direct safety question early: 'Do all the windows and doors lock properly?'",
+      "If the agent hedges on the window: 'So the bedroom window doesn't lock? Is that being fixed before move-in?'",
+      "React positively if the agent discloses the window issue proactively and professionally",
+      "Ask about the heating: 'What kind of heat does it have? I've heard electric baseboard can be expensive.'",
+      "Ask about the lease terms, move-in date, and whether pets are allowed",
+      "If the agent is evasive on any issue, say: 'I just want to know upfront — I'd rather hear it now than find out after I move in.'"
+    ],
+    "curveballs": [
+      "Ask if the landlord would consider painting the hallway before move-in",
+      "Mention you have a cat — ask about the pet policy and deposit",
+      "Ask whether any neighbors have been a problem — 'I work from home so noise matters to me'"
+    ]
+  }
+}

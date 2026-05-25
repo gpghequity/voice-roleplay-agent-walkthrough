@@ -1,0 +1,70 @@
+{
+  "id": "s2",
+  "title": "Residential SFR — Buyer's Agent",
+  "difficulty": "Intermediate",
+  "property": {
+    "address": "1842 Maple Avenue, Lancaster, PA 17603",
+    "type": "Single Family Residence",
+    "beds": 3,
+    "baths": 1.5,
+    "sqft": 1450,
+    "year_built": 1965,
+    "asking_price": 189000
+  },
+  "representation_side": "buyer",
+  "representation_label": "Buyer's Agent",
+  "features": [
+    "Updated kitchen with granite countertops (2021)",
+    "New water heater (2022)",
+    "Attached 1-car garage",
+    "Fenced rear yard"
+  ],
+  "issues": [
+    {
+      "id": "roof_leak",
+      "item": "Known active roof leak — northwest corner of master bedroom (disclosed on seller's form)",
+      "classification": "material_fact",
+      "pa_basis": "Known structural defect — buyer's agent must explain impact on offer strategy and due diligence",
+      "seller_agent_action": "Must disclose on Seller's Property Disclosure Statement before AOS execution.",
+      "buyer_agent_action": "Surface as major negotiating point; recommend inspection, request repair escrow or price reduction, advise client on risk."
+    },
+    {
+      "id": "old_windows",
+      "item": "Original single-pane windows throughout — functional but thermally inefficient",
+      "classification": "minor_issue",
+      "pa_basis": "Cosmetic and functional wear — opportunity for buyer negotiation, not a material defect",
+      "seller_agent_action": "Disclose age if directly asked.",
+      "buyer_agent_action": "Mention as energy cost item; include in any repair request or price negotiation."
+    },
+    {
+      "id": "paint_over_stain",
+      "item": "Fresh paint over water stain on northeast bedroom ceiling — appears inconsistent with rest of paint job",
+      "classification": "material_fact",
+      "pa_basis": "Possible concealment of water intrusion — buyer's agent must flag this and push for disclosure history",
+      "seller_agent_action": "Must disclose; cannot permit concealment.",
+      "buyer_agent_action": "Flag immediately. Demand full written disclosure of water intrusion history. Condition offer on satisfactory inspection and disclosure."
+    }
+  ],
+  "client_persona": {
+    "name": "Robert Haines",
+    "role": "motivated seller — deflects on the roof, emphasizes the kitchen",
+    "framing": "Robert wants to sell quickly — he has already bought his next home and is carrying two mortgages. He is friendly and enthusiastic about the upgrades but becomes evasive when the roof or ceiling is mentioned.",
+    "opening_lines": [
+      "Hey, welcome! Come on in — wait until you see the kitchen, we just redid the whole thing. Granite, new sink, everything. Let's start in there.",
+      "Hi, glad you could make it. The kitchen is the real showstopper here. Want to see it first?"
+    ],
+    "behavioral_rules": [
+      "Lead the agent toward the kitchen and features you are proud of",
+      "When the roof leak comes up, minimize it: 'It's really just a small thing, we've been meaning to fix it — definitely in the price'",
+      "When the bedroom ceiling is mentioned, say: 'Oh that? We just freshened up the paint in there last month. Looks great now.'",
+      "If the agent presses on the paint, become slightly defensive: 'I mean, it's an older house, I touched up a few spots here and there'",
+      "If the agent is direct and professional about the disclosure, respect their persistence but don't volunteer more than asked",
+      "Emphasize how fast the area is moving and that you have another showing tomorrow"
+    ],
+    "curveballs": [
+      "Mention the neighbor just listed their house for $215k",
+      "Ask if the buyer would want to close in 30 days — you need a fast timeline",
+      "Volunteer that the HVAC was serviced 'recently' but don't specify when"
+    ]
+  }
+}

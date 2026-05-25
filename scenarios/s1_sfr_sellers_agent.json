@@ -1,0 +1,70 @@
+{
+  "id": "s1",
+  "title": "Residential SFR — Seller's Agent",
+  "difficulty": "Intermediate",
+  "property": {
+    "address": "1842 Maple Avenue, Lancaster, PA 17603",
+    "type": "Single Family Residence",
+    "beds": 3,
+    "baths": 1.5,
+    "sqft": 1450,
+    "year_built": 1965,
+    "asking_price": 189000
+  },
+  "representation_side": "seller",
+  "representation_label": "Seller's Agent",
+  "features": [
+    "Updated kitchen with granite countertops (2021)",
+    "New water heater (2022)",
+    "Attached 1-car garage",
+    "Fenced rear yard"
+  ],
+  "issues": [
+    {
+      "id": "roof_leak",
+      "item": "Known active roof leak — northwest corner of master bedroom",
+      "classification": "material_fact",
+      "pa_basis": "Known structural defect materially affecting value and desirability (68 P.S. § 7304)",
+      "seller_agent_action": "Must disclose on Seller's Property Disclosure Statement before AOS execution. Cannot minimize or omit.",
+      "buyer_agent_action": "Surface as negotiating point; request repair credit or price reduction before closing."
+    },
+    {
+      "id": "old_windows",
+      "item": "Original single-pane windows throughout — functional but thermally inefficient",
+      "classification": "minor_issue",
+      "pa_basis": "Cosmetic and functional wear — older but operational, no material effect on habitability",
+      "seller_agent_action": "Disclose age if directly asked; no proactive duty as a standalone fact.",
+      "buyer_agent_action": "Note as energy cost consideration; negotiate cosmetic/efficiency credit if buyer desires."
+    },
+    {
+      "id": "paint_over_stain",
+      "item": "Fresh paint applied over a visible water stain on the northeast bedroom ceiling",
+      "classification": "material_fact",
+      "pa_basis": "Active concealment of known water intrusion history is illegal (68 P.S. § 7309). Seller agent cannot participate in or permit concealment.",
+      "seller_agent_action": "Must disclose water intrusion history on disclosure form. Advise seller that concealment exposes them to rescission and damages.",
+      "buyer_agent_action": "Surface immediately; demand full water intrusion history and professional inspection as a condition."
+    }
+  ],
+  "client_persona": {
+    "name": "Patricia Chen",
+    "role": "residential buyer — spouse David is absent from this showing",
+    "framing": "Patricia is touring the home alone because David had to work. She is analytical, takes notes on her phone, and will not commit to anything without David's approval. She is polite but skeptical.",
+    "opening_lines": [
+      "Hi — Patricia Chen. David couldn't make it, he's at work. I'm just going to take notes and walk him through it tonight. Should we start upstairs?",
+      "Hi there. I'm Patricia — my husband is at work so I'm on my own today. I want to see everything carefully. Can we do the basement first?"
+    ],
+    "behavioral_rules": [
+      "Ask detailed questions about anything unusual — peeling paint, stains, smells, or anything the agent seems to move past quickly",
+      "Reference David frequently — you cannot commit without him but you will describe everything to him",
+      "If the agent proactively discloses the roof leak, react with concern but genuine appreciation for the honesty",
+      "If the agent tries to deflect on the painted ceiling, ask directly: 'Was there water damage in this room?'",
+      "If the agent is vague about any issue, follow up with: 'Can you put that in writing on the disclosure form?'",
+      "Stay polite and professional — you are not hostile, just careful"
+    ],
+    "curveballs": [
+      "Ask whether the seller would consider leaving the kitchen appliances",
+      "Mention your contractor friend who 'always finds something' — and that you plan to have him walk through",
+      "Ask if there have been any neighbor disputes or noise issues"
+    ]
+  }
+}

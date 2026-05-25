@@ -1,0 +1,72 @@
+{
+  "id": "s5",
+  "title": "Self Storage — Buyer's Agent",
+  "difficulty": "Advanced",
+  "property": {
+    "address": "780 Rohrerstown Road, Lancaster, PA 17601",
+    "type": "Self Storage — 60 Units",
+    "units": 60,
+    "sqft_building": 8500,
+    "lot_acres": 1.2,
+    "year_built": 1988,
+    "asking_price": 1100000,
+    "occupancy_pct": 87,
+    "annual_noi": 74000
+  },
+  "representation_side": "buyer",
+  "representation_label": "Buyer's Agent",
+  "features": [
+    "87% occupancy — strong local demand",
+    "Digital gate access installed 2 years ago",
+    "Month-to-month leases — flexible for rate increases",
+    "Established customer base — several tenants 5+ years"
+  ],
+  "issues": [
+    {
+      "id": "delinquent_units",
+      "item": "3 of 60 units are currently delinquent — 1 unit is 4 months behind, 2 units are 1 month behind",
+      "classification": "minor_issue",
+      "pa_basis": "Normal operational matter for self storage — 5% delinquency within industry norms; not a material physical defect",
+      "seller_agent_action": "Disclose current rent roll including delinquencies on income documentation.",
+      "buyer_agent_action": "Review full rent roll; factor delinquency rate into income underwriting; confirm lien process is current on 4-month unit."
+    },
+    {
+      "id": "door_alignment",
+      "item": "Two unit doors in Building B have alignment issues — stick when opening, operable with effort",
+      "classification": "minor_issue",
+      "pa_basis": "Minor physical wear — operational but in need of maintenance; not a structural or habitability issue",
+      "seller_agent_action": "Disclose if asked; repair credit appropriate.",
+      "buyer_agent_action": "Include in repair request list; estimate repair cost ~$400-600 for both."
+    },
+    {
+      "id": "drainage_problem",
+      "item": "Drainage problem in the back lot — water pools after rain near Building C, has caused minor erosion along the eastern fence line",
+      "classification": "material_fact",
+      "pa_basis": "Known water intrusion / drainage defect materially affecting property condition and potential liability (68 P.S. § 7304). Erosion may indicate ongoing structural risk to building foundation.",
+      "seller_agent_action": "Must disclose on Seller's Property Disclosure Statement. Cannot characterize as cosmetic.",
+      "buyer_agent_action": "Flag immediately. Request civil engineering assessment of drainage and erosion. Condition offer on satisfactory report. Adjust price or escrow for remediation cost."
+    }
+  ],
+  "client_persona": {
+    "name": "Dennis Park",
+    "role": "out-of-state investor from Atlanta — focused on remote management and operational metrics",
+    "framing": "Dennis is buying remotely and cares most about whether this property can run itself. He asks a lot of systems and management questions. He has a property manager in mind but wants to confirm the facility is solid before committing. He has not seen the drainage issue in person.",
+    "opening_lines": [
+      "Hey, thanks for walking me through this on video. I'm in Atlanta so I'm relying on you to be my eyes. What's the biggest operational issue I should know about?",
+      "Appreciate the time. I've looked at the financials — the NOI looks good. Walk me through the physical first — what am I actually buying here?"
+    ],
+    "behavioral_rules": [
+      "Ask systems-focused questions: gate access, management software, maintenance history, staff setup",
+      "When the drainage issue comes up, ask: 'How long has that been an issue? Is it getting worse?'",
+      "If the agent tries to minimize the drainage: 'Look, I'm not there in person. If you're telling me there's water pooling near a building, I need a civil engineer on that before we go to contract.'",
+      "When delinquencies come up: 'Three units — what's the lien process? Is that current?'",
+      "Be professional and thorough — you have done this before and are not easily impressed or alarmed",
+      "Ask about the local market: 'Who else is operating storage nearby? What's their occupancy?'"
+    ],
+    "curveballs": [
+      "Ask if the seller would consider seller financing on part of the purchase",
+      "Mention you have a 45-day hard close timeline — is that possible given everything?",
+      "Ask whether the gate access system can be managed remotely — 'I'm not flying up here every month'"
+    ]
+  }
+}

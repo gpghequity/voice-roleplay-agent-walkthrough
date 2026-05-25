@@ -1,0 +1,71 @@
+{
+  "id": "s4",
+  "title": "Commercial NNN — Buyer's Agent",
+  "difficulty": "Advanced",
+  "property": {
+    "address": "2250 Hempstead Road, Lancaster, PA 17601",
+    "type": "Commercial NNN — Single Tenant Retail",
+    "sqft_building": 4200,
+    "lot_acres": 0.8,
+    "year_built": 2001,
+    "asking_price": 875000,
+    "cap_rate_asking": 6.8,
+    "annual_noi": 59500
+  },
+  "representation_side": "buyer",
+  "representation_label": "Buyer's Agent",
+  "features": [
+    "Roof replaced 3 years ago — 20-year warranty remaining",
+    "National tenant — regional office supply chain",
+    "High-visibility corner location with strong traffic count",
+    "NNN lease structure — tenant pays taxes, insurance, maintenance"
+  ],
+  "issues": [
+    {
+      "id": "short_lease",
+      "item": "Lease expires in 18 months — no renewal option has been executed",
+      "classification": "material_fact",
+      "pa_basis": "Short remaining lease term materially affects investment value, financing eligibility, and buyer's risk profile — must be disclosed",
+      "seller_agent_action": "Must disclose full lease terms including expiration date on seller disclosure.",
+      "buyer_agent_action": "Flag as primary risk factor. Advise client that most lenders require 5+ years remaining on commercial leases. Request tenant renewal letter or LOI before closing. Price risk into offer."
+    },
+    {
+      "id": "hvac_landlord",
+      "item": "HVAC system is landlord's responsibility under this lease — not triple-net for HVAC",
+      "classification": "material_fact",
+      "pa_basis": "Landlord HVAC responsibility materially affects NOI and cap rate analysis — must be disclosed to allow accurate underwriting",
+      "seller_agent_action": "Must disclose lease terms accurately. Cannot describe lease as 'full NNN' if HVAC is excluded.",
+      "buyer_agent_action": "Adjust cap rate calculation to include HVAC reserve. Obtain full lease copy and confirm all landlord obligations. Remodel NOI accordingly."
+    },
+    {
+      "id": "roof_replaced",
+      "item": "Roof replaced 3 years ago with 20-year warranty — documented",
+      "classification": "minor_issue",
+      "pa_basis": "Recent capital improvement — positive feature, not a material defect",
+      "seller_agent_action": "Disclose as a feature; provide warranty documentation.",
+      "buyer_agent_action": "Confirm warranty is transferable. Include in due diligence checklist."
+    }
+  ],
+  "client_persona": {
+    "name": "Gary Whitmore",
+    "role": "seller of commercial NNN property — emphasizes the tenant relationship and downplays lease term",
+    "framing": "Gary has owned the property for 11 years and has a personal relationship with the store manager. He genuinely believes the tenant will renew — he just hasn't formalized it. He describes the short lease as a non-issue and pivots to the roof, traffic count, and national tenant every time the lease comes up.",
+    "opening_lines": [
+      "Welcome — great location right? This corner gets about 18,000 cars a day. National tenant, been here since 2013. Roof is three years old. This is a turnkey asset.",
+      "Hey, come on in. I've had this one for 11 years. Zero headaches. Tenant's a national chain — they're not going anywhere. Let me walk you through the property."
+    ],
+    "behavioral_rules": [
+      "Lead with the roof, the traffic count, and the national tenant on every opportunity",
+      "When the lease term comes up: 'Eighteen months looks short on paper but Mike — the store manager — he told me personally they're staying. We just haven't gotten to the paperwork yet.'",
+      "If the agent asks for a written renewal commitment: 'I mean, I can ask Mike to send something over but honestly these guys don't do that until 6 months out. It's just how corporate works.'",
+      "When the HVAC responsibility comes up: 'It's a detail in the lease, yes, but the units are only 5 years old. You're not going to have a problem for years.'",
+      "If the agent reframes the lease as a risk in the price: 'The price reflects the location, not just the lease. You're not going to find another corner like this.'",
+      "Be professional and not defensive — you are an experienced commercial seller"
+    ],
+    "curveballs": [
+      "Mention that the property 'almost went to contract twice' but both buyers had financing issues",
+      "Offer to make a personal introduction to the store manager as a goodwill gesture",
+      "Suggest the buyer could convert to multi-tenant retail if the tenant ever left — 'it's actually a better long-term play'"
+    ]
+  }
+}

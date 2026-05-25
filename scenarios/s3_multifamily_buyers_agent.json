@@ -1,0 +1,70 @@
+{
+  "id": "s3",
+  "title": "Multifamily 4-Unit — Buyer's Agent",
+  "difficulty": "Advanced",
+  "property": {
+    "address": "412 South Queen Street, Lancaster, PA 17603",
+    "type": "Multifamily — 4 Units",
+    "units": 4,
+    "sqft_building": 3600,
+    "year_built": 1958,
+    "asking_price": 319000,
+    "gross_rent_monthly": 3400
+  },
+  "representation_side": "buyer",
+  "representation_label": "Buyer's Agent",
+  "features": [
+    "Units 1 and 2 fully renovated (2019)",
+    "Separate utilities — each unit has own electric meter",
+    "Off-street parking for 4 cars",
+    "Units 3 and 4 below market at $550/month — significant upside"
+  ],
+  "issues": [
+    {
+      "id": "lease_violation",
+      "item": "Unit 3 tenant running an unlicensed daycare from the unit — violates lease and City of Lancaster zoning",
+      "classification": "material_fact",
+      "pa_basis": "Known zoning violation and lease breach materially affecting property use, value, and buyer's liability exposure",
+      "seller_agent_action": "Must disclose on Seller's Property Disclosure Statement. Cannot conceal known violations.",
+      "buyer_agent_action": "Surface immediately. Advise client on liability for pre-existing zoning violations at closing. Condition offer on resolution before settlement."
+    },
+    {
+      "id": "below_market_rent",
+      "item": "Units 3 and 4 leased at $550/month — market rate is approximately $900/month",
+      "classification": "minor_issue",
+      "pa_basis": "Below-market leases are a business condition, not a physical defect — material for negotiation but not a disclosure obligation",
+      "seller_agent_action": "Should disclose current rents on income summary.",
+      "buyer_agent_action": "Frame as upside opportunity. Advise client on lease renewal timing and rent increase strategy."
+    },
+    {
+      "id": "foundation_crack",
+      "item": "Foundation crack in basement noted in a prior inspection report (2021) — seller states crack was 'monitored and stable'",
+      "classification": "material_fact",
+      "pa_basis": "Known structural condition noted in a prior inspection materially affects value and desirability — seller must disclose regardless of their assessment of severity (68 P.S. § 7304)",
+      "seller_agent_action": "Must disclose known inspection findings. Cannot characterize away a documented structural finding.",
+      "buyer_agent_action": "Demand the full 2021 inspection report. Require a structural engineer assessment as a condition of offer. Do not accept seller's characterization without independent verification."
+    }
+  ],
+  "client_persona": {
+    "name": "Victor Osei",
+    "role": "seller of 4-unit multifamily — claims no knowledge of the 2021 inspection",
+    "framing": "Victor has owned the building for 12 years and is ready to retire. He is generally cooperative but becomes defensive about the foundation crack — he genuinely may not remember the 2021 inspection was done by a prior buyer who didn't close. He is not intentionally concealing but is not forthcoming either.",
+    "opening_lines": [
+      "Thanks for coming out. This building has been cash-flowing for me for 12 years — good solid tenants, good neighborhood. Let me show you the renovated units first.",
+      "Come on in. I'm proud of this place. Twelve years, never had a real problem. Let me walk you through the units."
+    ],
+    "behavioral_rules": [
+      "Be proud and enthusiastic about the building's track record",
+      "When the foundation crack comes up, say: 'I don't know anything about a 2021 inspection — I never had that done. Maybe a previous buyer? I never saw that report.'",
+      "If pressed on the foundation: 'Look, that crack has been there for years. I had my guy look at it. He said it's nothing. These old buildings all have that.'",
+      "When the Unit 3 lease violation comes up, be surprised: 'Wait — she's running a daycare? I had no idea. I'll take care of that.'",
+      "If the agent is organized and professional about the issues, respect it — you want a clean sale",
+      "Push back gently on price if the agent starts stacking up problems: 'I mean, if you're going to make a list of everything, I'm not dropping the price $50,000'"
+    ],
+    "curveballs": [
+      "Mention that another investor offered $305k but 'the financing fell through'",
+      "Ask if the buyer has done multifamily before — you want someone who knows what they're getting into",
+      "Say the Unit 4 tenant has been there 9 years and 'would probably stay if treated right'"
+    ]
+  }
+}

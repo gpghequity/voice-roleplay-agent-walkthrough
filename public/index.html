@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Agent Walkthrough Practice — Projects with a Purpose</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#0a0f2c;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh;color:#e8e8f0}
+
+/* ── layout ── */
+.screen{display:none;min-height:100vh;padding:32px 20px;flex-direction:column;align-items:center}
+.screen.active{display:flex}
+.container{width:100%;max-width:700px}
+
+/* ── brand ── */
+.brand{color:#c9a84c;font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;display:block;text-align:center}
+h1{color:#fff;font-size:22px;font-weight:700;text-align:center;margin-bottom:6px}
+.subtitle{color:#6a7090;font-size:13px;text-align:center;margin-bottom:28px}
+
+/* ── password ── */
+.pw-card{background:#11183a;border:1px solid #1e2d5a;border-radius:14px;padding:40px 32px;max-width:400px;margin:auto}
+.pw-card h2{color:#fff;font-size:18px;margin-bottom:20px;text-align:center}
+.pw-input{width:100%;background:#0a0f2c;border:1px solid #2a3a6a;border-radius:8px;padding:14px 16px;color:#fff;font-size:15px;outline:none}
+.pw-input:focus{border-color:#c9a84c}
+.pw-error{color:#f87171;font-size:13px;margin-top:8px;text-align:center;display:none}
+.btn{display:block;width:100%;padding:14px;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;margin-top:14px;transition:opacity .15s}
+.btn-gold{background:#c9a84c;color:#0a0f2c}
+.btn-gold:hover{opacity:.85}
+.btn-navy{background:#1e3a7a;color:#fff}
+.btn-navy:hover{opacity:.85}
+.btn-teal{background:#0e7490;color:#fff}
+.btn-teal:hover{opacity:.85}
+.btn-green{background:#166534;color:#fff}
+.btn-green:hover{opacity:.85}
+.btn-red{background:#7f1d1d;color:#fff}
+.btn-red:hover{opacity:.85}
+.btn-sm{width:auto;padding:9px 18px;font-size:13px;margin-top:0}
+
+/* ── setup ── */
+.section-label{color:#c9a84c;font-size:10px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:12px}
+.scenario-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.scenario-card{background:#11183a;border:2px solid #1e2d5a;border-radius:10px;padding:16px 20px;cursor:pointer;transition:border-color .15s}
+.scenario-card:hover,.scenario-card.selected{border-color:#c9a84c}
+.scenario-card.selected{background:#1a243c}
+.sc-title{color:#fff;font-size:14px;font-weight:600;margin-bottom:4px}
+.sc-meta{color:#6a7090;font-size:12px}
+.sc-diff{float:right;font-size:10px;padding:2px 8px;border-radius:20px;background:#0a0f2c;color:#c9a84c;letter-spacing:.1em;text-transform:uppercase}
+
+.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px}
+.mode-card{background:#11183a;border:2px solid #1e2d5a;border-radius:10px;padding:16px;cursor:pointer;transition:border-color .15s;text-align:center}
+.mode-card:hover,.mode-card.selected{border-color:#c9a84c}
+.mode-card.selected{background:#1a243c}
+.mode-icon{font-size:22px;margin-bottom:6px}
+.mode-title{color:#fff;font-size:13px;font-weight:600;margin-bottom:4px}
+.mode-desc{color:#6a7090;font-size:11px;line-height:1.5}
+
+.obs-submodes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+
+.name-row{display:flex;gap:10px;align-items:center;margin-bottom:20px}
+.name-input{flex:1;background:#0a0f2c;border:1px solid #2a3a6a;border-radius:8px;padding:12px 14px;color:#fff;font-size:14px;outline:none}
+.name-input:focus{border-color:#c9a84c}
+
+/* ── property profile ── */
+.profile-box{background:#0f1635;border:1px solid #1e2d5a;border-radius:10px;padding:16px 18px;margin-bottom:18px}
+.profile-box h3{color:#c9a84c;font-size:11px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:10px}
+.profile-address{color:#fff;font-size:14px;font-weight:600;margin-bottom:8px}
+.profile-stats{color:#8a9ab0;font-size:12px;margin-bottom:10px}
+.feature-list{margin-bottom:10px}
+.feature-item{color:#6abf70;font-size:12px;margin-bottom:3px;padding-left:12px;position:relative}
+.feature-item::before{content:'✓';position:absolute;left:0;color:#6abf70}
+.issues-list{margin-top:6px}
+.issue-row{border-radius:6px;padding:8px 10px;margin-bottom:6px}
+.issue-row.material{background:#2d1515;border-left:3px solid #ef4444}
+.issue-row.minor{background:#161d36;border-left:3px solid #6a7090}
+.issue-item-text{color:#e8e8f0;font-size:12px;margin-bottom:3px}
+.issue-badge{display:inline-block;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:1px 6px;border-radius:10px;margin-bottom:3px}
+.badge-material{background:#7f1d1d;color:#fca5a5}
+.badge-minor{background:#1e2d5a;color:#8a9ab0}
+.issue-action{color:#8a9ab0;font-size:11px;line-height:1.4}
+
+/* ── testing mode profile (no classification labels) ── */
+.issue-row.unlabeled{background:#161d36;border-left:3px solid #2a3a6a}
+
+/* ── chat ── */
+.chat-area{background:#0a0f2c;border:1px solid #1e2d5a;border-radius:10px;height:320px;overflow-y:auto;padding:14px;margin-bottom:12px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:82%;border-radius:10px;padding:10px 14px;font-size:13px;line-height:1.55}
+.msg-agent{background:#1a2a5c;color:#e8e8f0;align-self:flex-end}
+.msg-client{background:#162030;color:#b0c0d8;align-self:flex-start}
+.msg-examiner{background:#1a1a1a;color:#d4d4d4;align-self:flex-start}
+.msg-label{font-size:10px;color:#6a7090;margin-bottom:3px}
+
+.voice-row{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+#mic-btn{width:54px;height:54px;border-radius:50%;border:none;background:#1e3a7a;color:#fff;font-size:22px;cursor:pointer;flex-shrink:0;transition:background .15s}
+#mic-btn.recording{background:#7f1d1d;animation:pulse 1s infinite}
+#mic-btn.processing{background:#0e4a5a;pointer-events:none}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.transcript-box{flex:1;background:#0a0f2c;border:1px solid #1e2d5a;border-radius:8px;padding:10px 12px;color:#e8e8f0;font-size:13px;min-height:54px;line-height:1.5}
+.mic-status{color:#6a7090;font-size:11px;margin-bottom:8px;text-align:center;min-height:16px}
+
+/* ── observation watch ── */
+.watch-transcript{background:#0a0f2c;border:1px solid #1e2d5a;border-radius:10px;padding:14px;margin-bottom:14px;max-height:360px;overflow-y:auto;display:flex;flex-direction:column;gap:8px}
+.obs-turn{border-radius:8px;padding:10px 14px}
+.obs-agent{background:#1a2a5c;color:#e8e8f0}
+.obs-client{background:#162030;color:#b0c0d8}
+.obs-label{font-size:10px;color:#c9a84c;margin-bottom:3px}
+.obs-content{font-size:13px;line-height:1.5}
+.obs-technique{font-size:10px;color:#6abf70;margin-top:4px;font-style:italic}
+.obs-controls{display:flex;gap:10px;align-items:center;margin-bottom:14px}
+.progress-bar{flex:1;height:4px;background:#1e2d5a;border-radius:2px}
+.progress-fill{height:100%;background:#c9a84c;border-radius:2px;transition:width .3s}
+.obs-counter{color:#6a7090;font-size:12px;white-space:nowrap}
+
+/* ── debrief ── */
+.debrief-section{background:#0f1635;border:1px solid #1e2d5a;border-radius:10px;padding:16px;margin-bottom:14px}
+.debrief-section h3{color:#c9a84c;font-size:11px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:12px}
+.debrief-turn{border-bottom:1px solid #1e2d5a;padding:10px 0;font-size:12px}
+.debrief-turn:last-child{border-bottom:none}
+.debrief-speaker{color:#8a9ab0;margin-bottom:3px}
+.debrief-text{color:#e8e8f0;margin-bottom:4px;line-height:1.5}
+.debrief-note{color:#6abf70;font-style:italic}
+
+/* ── scorecard ── */
+.score-card{background:#11183a;border:1px solid #1e2d5a;border-radius:12px;padding:22px;margin-bottom:14px}
+.score-overall{text-align:center;margin-bottom:20px}
+.score-big{font-size:52px;font-weight:700;color:#c9a84c}
+.score-max{font-size:20px;color:#6a7090}
+.pillars-list{display:flex;flex-direction:column;gap:10px}
+.pillar-row{background:#0a0f2c;border-radius:8px;padding:12px 14px}
+.pillar-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
+.pillar-name{color:#e8e8f0;font-size:13px;font-weight:600;text-transform:capitalize}
+.pillar-score{color:#c9a84c;font-weight:700}
+.pillar-feedback{color:#8a9ab0;font-size:12px;line-height:1.4}
+.missed-flag{background:#2d1515;border:1px solid #7f1d1d;border-radius:8px;padding:12px 14px;margin-bottom:10px}
+.missed-title{color:#f87171;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.missed-item{color:#fca5a5;font-size:12px;margin-bottom:3px}
+.insight-box{background:#0a0f2c;border-radius:8px;padding:12px 14px;margin-bottom:8px}
+.insight-label{color:#c9a84c;font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+.insight-text{color:#e8e8f0;font-size:13px;line-height:1.5}
+
+/* ── notice ── */
+.notice{background:#0f1635;border:1px solid #1e2d5a;border-radius:8px;padding:12px 16px;color:#6a7090;font-size:12px;margin-bottom:16px;line-height:1.5}
+
+footer{text-align:center;color:#3a4060;font-size:10px;padding:24px 0 12px}
+
+/* ── testing mode issue queue ── */
+.testing-issue-box{background:#1a1a1a;border:1px solid #2a3a4a;border-radius:10px;padding:14px 16px;margin-bottom:12px}
+.testing-issue-label{color:#c9a84c;font-size:10px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.testing-issue-text{color:#e8e8f0;font-size:14px;line-height:1.5}
+</style>
+</head>
+<body>
+
+<!-- PASSWORD -->
+<div id="screen-password" class="screen active">
+  <div class="pw-card">
+    <span class="brand">Projects with a Purpose</span>
+    <h2>Agent Walkthrough Practice</h2>
+    <p style="color:#6a7090;font-size:13px;text-align:center;margin-bottom:20px">Property walkthrough, disclosure, and PA law training</p>
+    <input id="pw-input" class="pw-input" type="password" placeholder="Enter access password" autofocus/>
+    <div id="pw-error" class="pw-error">Incorrect password</div>
+    <button class="btn btn-gold" onclick="checkPassword()">Enter</button>
+  </div>
+</div>
+
+<!-- SETUP -->
+<div id="screen-setup" class="screen">
+  <div class="container">
+    <span class="brand">Projects with a Purpose</span>
+    <h1>Agent Walkthrough Practice</h1>
+    <p class="subtitle">Select a scenario and mode to begin</p>
+
+    <div class="section-label">Choose a Scenario</div>
+    <div class="scenario-grid" id="scenario-grid"></div>
+
+    <div class="section-label">Choose a Mode</div>
+    <div class="mode-grid">
+      <div class="mode-card" onclick="selectMode('practice')" id="mode-practice">
+        <div class="mode-icon">🎤</div>
+        <div class="mode-title">Practice</div>
+        <div class="mode-desc">You are the agent. AI plays the client. Handle disclosure under realistic pressure. Scored.</div>
+      </div>
+      <div class="mode-card" onclick="selectMode('testing')" id="mode-testing">
+        <div class="mode-icon">📋</div>
+        <div class="mode-title">Testing</div>
+        <div class="mode-desc">AI examiner tests your PA law knowledge issue by issue. No roleplay. Scored on legal accuracy.</div>
+      </div>
+      <div class="mode-card" onclick="selectMode('watch')" id="mode-watch">
+        <div class="mode-icon">👁️</div>
+        <div class="mode-title">Observation — Watch</div>
+        <div class="mode-desc">AI runs the full walkthrough. You observe. Timestamped technique debrief after.</div>
+      </div>
+      <div class="mode-card" onclick="selectMode('shadow')" id="mode-shadow">
+        <div class="mode-icon">🪞</div>
+        <div class="mode-title">Observation — Shadow</div>
+        <div class="mode-desc">You play the client. AI demonstrates correct agent technique. Learn from the other side.</div>
+      </div>
+    </div>
+
+    <div class="name-row">
+      <input id="agent-name" class="name-input" type="text" placeholder="Your name (optional)"/>
+    </div>
+
+    <button class="btn btn-gold" onclick="startSession()">Begin Session</button>
+    <div class="notice" style="margin-top:14px">⚠ Chrome or Edge required for voice recognition. Safari and Firefox do not support the Web Speech API.</div>
+  </div>
+</div>
+
+<!-- SESSION (practice / shadow) -->
+<div id="screen-session" class="screen">
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <div>
+        <div id="session-scenario-title" style="color:#c9a84c;font-size:11px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:3px"></div>
+        <div id="session-mode-label" style="color:#6a7090;font-size:12px"></div>
+      </div>
+      <button class="btn btn-navy btn-sm" onclick="endSession()">End &amp; Score</button>
+    </div>
+
+    <div id="session-profile" class="profile-box" style="display:none"></div>
+
+    <div class="chat-area" id="chat-area"></div>
+    <div class="mic-status" id="mic-status">Tap the microphone to speak</div>
+    <div class="voice-row">
+      <button id="mic-btn" onclick="toggleMic()">🎤</button>
+      <div class="transcript-box" id="transcript-box">Your words will appear here as you speak...</div>
+    </div>
+    <button class="btn btn-gold" onclick="sendTranscript()" id="send-btn" style="display:none">Send</button>
+  </div>
+</div>
+
+<!-- TESTING MODE -->
+<div id="screen-testing" class="screen">
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <div>
+        <div id="test-scenario-title" style="color:#c9a84c;font-size:11px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:3px"></div>
+        <div style="color:#6a7090;font-size:12px">Testing Mode — PA Law Examination</div>
+      </div>
+      <button class="btn btn-navy btn-sm" onclick="endTesting()">Get Scorecard</button>
+    </div>
+
+    <div id="test-profile" class="profile-box"></div>
+
+    <div class="chat-area" id="test-chat-area"></div>
+    <div class="mic-status" id="test-mic-status">Tap the microphone to answer</div>
+    <div class="voice-row">
+      <button id="test-mic-btn" onclick="toggleTestMic()">🎤</button>
+      <div class="transcript-box" id="test-transcript-box">Your answer will appear here...</div>
+    </div>
+    <button class="btn btn-gold" onclick="sendTestAnswer()" id="test-send-btn" style="display:none">Submit Answer</button>
+  </div>
+</div>
+
+<!-- WATCH MODE -->
+<div id="screen-watch" class="screen">
+  <div class="container">
+    <span class="brand">Projects with a Purpose</span>
+    <h1 id="watch-title">Observation — Watch Mode</h1>
+    <p class="subtitle" id="watch-subtitle"></p>
+
+    <div id="watch-generating" style="text-align:center;padding:40px 0;color:#6a7090">
+      <div style="font-size:32px;margin-bottom:12px">⏳</div>
+      Generating walkthrough conversation...
+    </div>
+
+    <div id="watch-player" style="display:none">
+      <div class="obs-controls">
+        <button class="btn btn-navy btn-sm" id="watch-play-btn" onclick="playWatch()">▶ Play</button>
+        <div class="progress-bar"><div class="progress-fill" id="watch-progress" style="width:0%"></div></div>
+        <div class="obs-counter" id="watch-counter">0 / 0</div>
+      </div>
+      <div class="watch-transcript" id="watch-transcript"></div>
+      <button class="btn btn-gold" onclick="showWatchDebrief()" id="watch-debrief-btn" style="display:none">View Technique Debrief</button>
+    </div>
+
+    <div id="watch-debrief" style="display:none">
+      <div class="section-label" style="margin-bottom:12px">Technique Debrief</div>
+      <div id="watch-debrief-content"></div>
+      <button class="btn btn-navy" onclick="goSetup()">New Session</button>
+    </div>
+  </div>
+</div>
+
+<!-- SCORECARD -->
+<div id="screen-score" class="screen">
+  <div class="container">
+    <span class="brand">Projects with a Purpose</span>
+    <h1 id="score-title">Session Scorecard</h1>
+    <p class="subtitle" id="score-subtitle"></p>
+
+    <div id="score-loading" style="text-align:center;padding:40px 0;color:#6a7090">
+      <div style="font-size:32px;margin-bottom:12px">⏳</div>
+      Analyzing your session...
+    </div>
+    <div id="score-content" style="display:none"></div>
+
+    <button class="btn btn-gold" onclick="goSetup()" style="margin-top:8px">New Session</button>
+  </div>
+</div>
+
+<footer>Projects with a Purpose LLC — Agent Walkthrough Practice v1.0 — 2026-05-25<br>For training purposes only. Not legal advice. Consult a licensed PA real estate attorney for legal guidance.</footer>
+
+<script>
+// ── state ──────────────────────────────────────────────────────────────────────
+let scenarios = [];
+let selectedScenario = null;
+let selectedMode = 'practice';
+let agentName = '';
+let history = [];
+let sessionState = { turns_taken: 0, current_issue_index: 0, turns_on_current_issue: 0 };
+let recognition = null;
+let currentTranscript = '';
+let watchTurns = [];
+let watchIndex = 0;
+let watchPlaying = false;
+let watchTimer = null;
+
+// ── password ──────────────────────────────────────────────────────────────────
+document.getElementById('pw-input').addEventListener('keydown', e => { if (e.key === 'Enter') checkPassword(); });
+
+async function checkPassword() {
+  const pw = document.getElementById('pw-input').value;
+  const r = await fetch('/validate-password', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: pw }) });
+  const d = await r.json();
+  if (d.valid) { loadSetup(); showScreen('setup'); }
+  else { document.getElementById('pw-error').style.display = 'block'; }
+}
+
+// ── setup ─────────────────────────────────────────────────────────────────────
+async function loadSetup() {
+  if (scenarios.length) return;
+  const r = await fetch('/scenarios');
+  scenarios = await r.json();
+  const grid = document.getElementById('scenario-grid');
+  grid.innerHTML = scenarios.map(s => `
+    <div class="scenario-card" id="sc-${s.id}" onclick="selectScenario('${s.id}')">
+      <span class="sc-diff">${s.difficulty}</span>
+      <div class="sc-title">${s.title}</div>
+      <div class="sc-meta">${s.representation_label} &mdash; ${s.client_role}</div>
+    </div>`).join('');
+}
+
+function selectScenario(id) {
+  selectedScenario = scenarios.find(s => s.id === id);
+  document.querySelectorAll('.scenario-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('sc-' + id).classList.add('selected');
+}
+
+function selectMode(mode) {
+  selectedMode = mode;
+  document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('mode-' + mode).classList.add('selected');
+}
+
+async function startSession() {
+  if (!selectedScenario) { alert('Please select a scenario.'); return; }
+  agentName = document.getElementById('agent-name').value.trim() || 'Agent';
+  const r = await fetch('/scenario/' + selectedScenario.id);
+  const scenario = await r.json();
+  sessionState = { turns_taken: 0, current_issue_index: 0, turns_on_current_issue: 0, mode: selectedMode };
+  history = [];
+
+  if (selectedMode === 'watch') { startWatchMode(scenario); return; }
+  if (selectedMode === 'testing') { startTestingMode(scenario); return; }
+
+  // Practice or Shadow
+  const isAgentMode = (selectedMode === 'practice');
+  document.getElementById('session-scenario-title').textContent = scenario.title;
+  document.getElementById('session-mode-label').textContent =
+    selectedMode === 'practice' ? 'Practice Mode — You are the agent' : 'Shadow Mode — You are the client';
+
+  const profileEl = document.getElementById('session-profile');
+  profileEl.style.display = 'block';
+  profileEl.innerHTML = buildProfileHTML(scenario, true);
+
+  document.getElementById('chat-area').innerHTML = '';
+  showScreen('session');
+  initSpeech('mic-btn', 'transcript-box', 'mic-status', 'send-btn', sendTranscript);
+
+  const opening = scenario.client_persona.opening_lines[Math.floor(Math.random() * scenario.client_persona.opening_lines.length)];
+  const label = selectedMode === 'practice' ? scenario.client_persona.name : 'Agent';
+  addMessage(label, opening, selectedMode === 'practice' ? 'client' : 'agent');
+  history.push({ role: 'assistant', content: opening });
+}
+
+// ── profile builder ────────────────────────────────────────────────────────────
+function buildProfileHTML(s, showClassification) {
+  const p = s.property;
+  let stats = [];
+  if (p.beds) stats.push(`${p.beds}BR/${p.baths}BA`);
+  if (p.sqft) stats.push(`${p.sqft.toLocaleString()} sqft`);
+  if (p.units) stats.push(`${p.units} units`);
+  if (p.year_built) stats.push(`Built ${p.year_built}`);
+  if (p.asking_price) stats.push(`Ask $${p.asking_price.toLocaleString()}`);
+  if (p.monthly_rent) stats.push(`Rent $${p.monthly_rent}/mo`);
+
+  const featuresHTML = s.features.map(f => `<div class="feature-item">${f}</div>`).join('');
+  const issuesHTML = s.issues.map(i => {
+    if (showClassification) {
+      const isMaterial = i.classification === 'material_fact';
+      const action = s.representation_side === 'seller' ? i.seller_agent_action
+        : s.representation_side === 'landlord' ? (i.landlord_agent_action || i.buyer_agent_action)
+        : i.buyer_agent_action;
+      return `<div class="issue-row ${isMaterial ? 'material' : 'minor'}">
+        <span class="issue-badge ${isMaterial ? 'badge-material' : 'badge-minor'}">${isMaterial ? 'Material Fact' : 'Minor Issue'}</span>
+        <div class="issue-item-text">${i.item}</div>
+        <div class="issue-action">${action}</div>
+      </div>`;
+    } else {
+      return `<div class="issue-row unlabeled"><div class="issue-item-text">${i.item}</div></div>`;
+    }
+  }).join('');
+
+  return `<h3>${s.representation_label} — Property Profile</h3>
+    <div class="profile-address">${p.address}</div>
+    <div class="profile-stats">${stats.join(' &bull; ')}</div>
+    <div class="section-label" style="margin-bottom:6px">Features</div>
+    <div class="feature-list">${featuresHTML}</div>
+    <div class="section-label" style="margin-top:10px;margin-bottom:6px">Known Issues</div>
+    <div class="issues-list">${issuesHTML}</div>`;
+}
+
+// ── speech recognition ─────────────────────────────────────────────────────────
+function initSpeech(btnId, boxId, statusId, sendBtnId, sendFn) {
+  const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRec) {
+    document.getElementById(statusId).textContent = 'Voice not supported — type and use Send button';
+    document.getElementById(boxId).contentEditable = 'true';
+    document.getElementById(sendBtnId).style.display = 'block';
+    return;
+  }
+  recognition = new SpeechRec();
+  recognition.continuous = false;
+  recognition.interimResults = true;
+  recognition.lang = 'en-US';
+  recognition.onresult = e => {
+    let interim = '', final = '';
+    for (let r of e.results) { if (r.isFinal) final += r[0].transcript; else interim += r[0].transcript; }
+    if (final) currentTranscript = final.trim();
+    document.getElementById(boxId).textContent = (currentTranscript || interim || '').trim() || 'Listening...';
+  };
+  recognition.onend = () => {
+    const btn = document.getElementById(btnId);
+    if (btn.classList.contains('recording')) {
+      btn.classList.remove('recording');
+      btn.textContent = '🎤';
+      if (currentTranscript) {
+        document.getElementById(statusId).textContent = 'Processing...';
+        sendFn();
+      } else {
+        document.getElementById(statusId).textContent = 'Nothing heard — tap again to retry';
+      }
+    }
+  };
+  recognition.onerror = () => {
+    document.getElementById(btnId).classList.remove('recording');
+    document.getElementById(btnId).textContent = '🎤';
+    document.getElementById(statusId).textContent = 'Voice error — tap to retry';
+  };
+}
+
+function toggleMic() {
+  const btn = document.getElementById('mic-btn');
+  if (btn.classList.contains('recording')) {
+    recognition.stop();
+    btn.classList.remove('recording');
+    btn.textContent = '🎤';
+  } else {
+    currentTranscript = '';
+    document.getElementById('transcript-box').textContent = 'Listening...';
+    document.getElementById('mic-status').textContent = 'Recording — tap again to stop';
+    btn.classList.add('recording');
+    btn.textContent = '⏹';
+    recognition.start();
+  }
+}
+
+function toggleTestMic() {
+  const btn = document.getElementById('test-mic-btn');
+  if (btn.classList.contains('recording')) {
+    recognition.stop();
+    btn.classList.remove('recording');
+    btn.textContent = '🎤';
+  } else {
+    currentTranscript = '';
+    document.getElementById('test-transcript-box').textContent = 'Listening...';
+    document.getElementById('test-mic-status').textContent = 'Recording — tap again to stop';
+    btn.classList.add('recording');
+    btn.textContent = '⏹';
+    recognition.start();
+  }
+}
+
+// ── chat (practice / shadow) ───────────────────────────────────────────────────
+async function sendTranscript() {
+  const text = currentTranscript || document.getElementById('transcript-box').textContent;
+  if (!text || text === 'Your words will appear here as you speak...') return;
+  currentTranscript = '';
+  document.getElementById('transcript-box').textContent = '';
+  document.getElementById('mic-status').textContent = 'Processing...';
+  document.getElementById('mic-btn').classList.add('processing');
+  document.getElementById('mic-btn').textContent = '⏳';
+
+  addMessage(agentName, text, 'agent');
+  history.push({ role: 'user', content: text });
+
+  const r = await fetch('/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ scenarioId: selectedScenario.id, mode: selectedMode, agentName, userMessage: text, history, sessionState })
+  });
+  const d = await r.json();
+  sessionState = d.updatedState || sessionState;
+
+  const clientName = selectedMode === 'practice' ? selectedScenario.client_name : 'Agent';
+  addMessage(clientName, d.reply, selectedMode === 'practice' ? 'client' : 'agent');
+  history.push({ role: 'assistant', content: d.reply });
+  speak(d.reply);
+
+  document.getElementById('mic-btn').classList.remove('processing');
+  document.getElementById('mic-btn').textContent = '🎤';
+  document.getElementById('mic-status').textContent = 'Tap to respond';
+}
+
+function addMessage(speaker, text, type) {
+  const area = document.getElementById('chat-area');
+  const div = document.createElement('div');
+  const cls = type === 'agent' ? 'msg-agent' : type === 'examiner' ? 'msg-examiner' : 'msg-client';
+  div.className = `msg ${cls}`;
+  div.innerHTML = `<div class="msg-label">${speaker}</div>${text}`;
+  area.appendChild(div);
+  area.scrollTop = area.scrollHeight;
+}
+
+async function endSession() {
+  showScreen('score');
+  document.getElementById('score-title').textContent = 'Practice Scorecard';
+  document.getElementById('score-subtitle').textContent = selectedScenario.title + ' — ' + selectedScenario.representation_label;
+  document.getElementById('score-loading').style.display = 'block';
+  document.getElementById('score-content').style.display = 'none';
+
+  const r = await fetch('/score', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ scenarioId: selectedScenario.id, history, sessionState, agentName })
+  });
+  const d = await r.json();
+  renderScorecard(d, 'practice');
+}
+
+// ── testing mode ───────────────────────────────────────────────────────────────
+async function startTestingMode(scenario) {
+  document.getElementById('test-scenario-title').textContent = scenario.title;
+  document.getElementById('test-profile').innerHTML = buildProfileHTML(scenario, false);
+  document.getElementById('test-chat-area').innerHTML = '';
+  history = [];
+  sessionState = { turns_taken: 0, current_issue_index: 0, turns_on_current_issue: 0, mode: 'testing' };
+  showScreen('testing');
+  initSpeech('test-mic-btn', 'test-transcript-box', 'test-mic-status', 'test-send-btn', sendTestAnswer);
+
+  const opening = `You are being tested on PA real estate disclosure law. I'll present each issue in this property one at a time. For each one, tell me: (1) Is it a material fact or a minor issue under PA law? (2) What is your specific disclosure obligation as a ${scenario.representation_label}? Commit to your answer before I respond. Ready — Issue 1 of ${scenario.issues.length}: "${scenario.issues[0].item}" — Classify it and state your obligation.`;
+  addTestMessage('Examiner', opening, 'examiner');
+  history.push({ role: 'assistant', content: opening });
+  speak(opening);
+}
+
+async function sendTestAnswer() {
+  const text = currentTranscript || document.getElementById('test-transcript-box').textContent;
+  if (!text || text === 'Your answer will appear here...') return;
+  currentTranscript = '';
+  document.getElementById('test-transcript-box').textContent = '';
+  document.getElementById('test-mic-status').textContent = 'Processing...';
+  document.getElementById('test-mic-btn').classList.add('processing');
+  document.getElementById('test-mic-btn').textContent = '⏳';
+
+  addTestMessage(agentName, text, 'agent');
+  history.push({ role: 'user', content: text });
+
+  const r = await fetch('/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ scenarioId: selectedScenario.id, mode: 'testing', agentName, userMessage: text, history, sessionState })
+  });
+  const d = await r.json();
+  sessionState = d.updatedState || sessionState;
+
+  addTestMessage('Examiner', d.reply, 'examiner');
+  history.push({ role: 'assistant', content: d.reply });
+  speak(d.reply);
+
+  document.getElementById('test-mic-btn').classList.remove('processing');
+  document.getElementById('test-mic-btn').textContent = '🎤';
+  document.getElementById('test-mic-status').textContent = 'Tap to answer';
+}
+
+function addTestMessage(speaker, text, type) {
+  const area = document.getElementById('test-chat-area');
+  const div = document.createElement('div');
+  const cls = type === 'agent' ? 'msg-agent' : 'msg-examiner';
+  div.className = `msg ${cls}`;
+  div.innerHTML = `<div class="msg-label">${speaker}</div>${text}`;
+  area.appendChild(div);
+  area.scrollTop = area.scrollHeight;
+}
+
+async function endTesting() {
+  showScreen('score');
+  document.getElementById('score-title').textContent = 'Testing Scorecard';
+  document.getElementById('score-subtitle').textContent = selectedScenario.title + ' — PA Law Examination';
+  document.getElementById('score-loading').style.display = 'block';
+  document.getElementById('score-content').style.display = 'none';
+
+  const r = await fetch('/test-score', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ scenarioId: selectedScenario.id, history, agentName })
+  });
+  const d = await r.json();
+  renderScorecard(d, 'testing');
+}
+
+// ── watch mode ─────────────────────────────────────────────────────────────────
+async function startWatchMode(scenario) {
+  showScreen('watch');
+  document.getElementById('watch-title').textContent = 'Observation — Watch Mode';
+  document.getElementById('watch-subtitle').textContent = scenario.title + ' — ' + scenario.representation_label;
+  document.getElementById('watch-generating').style.display = 'block';
+  document.getElementById('watch-player').style.display = 'none';
+  document.getElementById('watch-debrief').style.display = 'none';
+
+  const r = await fetch('/observation/generate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ scenarioId: scenario.id })
+  });
+  const d = await r.json();
+  watchTurns = d.turns || [];
+  watchIndex = 0;
+
+  document.getElementById('watch-generating').style.display = 'none';
+  document.getElementById('watch-player').style.display = 'block';
+  document.getElementById('watch-counter').textContent = `0 / ${watchTurns.length}`;
+  document.getElementById('watch-transcript').innerHTML = '';
+}
+
+function playWatch() {
+  if (watchPlaying) return;
+  watchPlaying = true;
+  document.getElementById('watch-play-btn').textContent = '▶ Playing...';
+  document.getElementById('watch-play-btn').disabled = true;
+  playNextTurn();
+}
+
+function playNextTurn() {
+  if (watchIndex >= watchTurns.length) {
+    watchPlaying = false;
+    document.getElementById('watch-play-btn').textContent = '✓ Complete';
+    document.getElementById('watch-debrief-btn').style.display = 'block';
+    return;
+  }
+  const turn = watchTurns[watchIndex];
+  const isAgent = turn.speaker === 'Agent' || (turn.technique != null);
+  const div = document.createElement('div');
+  div.className = `obs-turn ${isAgent ? 'obs-agent' : 'obs-client'}`;
+  div.innerHTML = `<div class="obs-label">${turn.speaker}</div>
+    <div class="obs-content">${turn.content}</div>
+    ${turn.technique ? `<div class="obs-technique">◆ ${turn.technique.replace(/_/g,' ')}</div>` : ''}`;
+  document.getElementById('watch-transcript').appendChild(div);
+  document.getElementById('watch-transcript').scrollTop = document.getElementById('watch-transcript').scrollHeight;
+
+  const pct = Math.round(((watchIndex + 1) / watchTurns.length) * 100);
+  document.getElementById('watch-progress').style.width = pct + '%';
+  document.getElementById('watch-counter').textContent = `${watchIndex + 1} / ${watchTurns.length}`;
+  watchIndex++;
+
+  speak(turn.content, () => {
+    watchTimer = setTimeout(playNextTurn, 600);
+  });
+}
+
+function showWatchDebrief() {
+  document.getElementById('watch-debrief-btn').style.display = 'none';
+  document.getElementById('watch-debrief').style.display = 'block';
+  const agentTurns = watchTurns.filter(t => t.technique);
+  const html = agentTurns.map((t, i) => `
+    <div class="debrief-section">
+      <div class="debrief-turn">
+        <div class="debrief-speaker">Turn ${watchTurns.indexOf(t) + 1} — Agent</div>
+        <div class="debrief-text">"${t.content}"</div>
+        <div class="debrief-note">◆ ${t.technique.replace(/_/g,' ')} — ${t.technique_note || ''}</div>
+      </div>
+    </div>`).join('');
+  document.getElementById('watch-debrief-content').innerHTML = html || '<p style="color:#6a7090;font-size:13px">No technique annotations available.</p>';
+}
+
+// ── scorecard renderer ─────────────────────────────────────────────────────────
+function renderScorecard(d, mode) {
+  document.getElementById('score-loading').style.display = 'none';
+  const el = document.getElementById('score-content');
+  el.style.display = 'block';
+
+  const pillars = d.pillars || {};
+  const pillarNames = Object.keys(pillars);
+  const total = pillarNames.reduce((s, k) => s + (pillars[k].score || 0), 0);
+  const max = pillarNames.length * 10;
+  const overall = d.overall_score || Math.round(total / pillarNames.length);
+
+  let html = `<div class="score-card">
+    <div class="score-overall">
+      <span class="score-big">${overall}</span><span class="score-max">/10</span>
+      <div style="color:#6a7090;font-size:13px;margin-top:4px">Overall Score</div>
+    </div>`;
+
+  // Missed material facts (practice mode)
+  if (d.missed_material_facts && d.missed_material_facts.length > 0) {
+    html += `<div class="missed-flag">
+      <div class="missed-title">⚠ Missed Material Facts — PA Disclosure Obligation Not Met</div>
+      ${d.missed_material_facts.map(m => `<div class="missed-item">• ${m}</div>`).join('')}
+    </div>`;
+  }
+
+  // Misclassified issues (testing mode)
+  if (d.misclassified_issues && d.misclassified_issues.length > 0) {
+    html += `<div class="missed-flag">
+      <div class="missed-title">⚠ Misclassified Under PA Law</div>
+      ${d.misclassified_issues.map(m => `<div class="missed-item">• ${m}</div>`).join('')}
+    </div>`;
+  }
+
+  html += `<div class="pillars-list">
+    ${pillarNames.map(k => `<div class="pillar-row">
+      <div class="pillar-header">
+        <span class="pillar-name">${k.replace(/_/g,' ')}</span>
+        <span class="pillar-score">${pillars[k].score}/10</span>
+      </div>
+      <div class="pillar-feedback">${pillars[k].feedback}</div>
+    </div>`).join('')}
+  </div></div>`;
+
+  if (d.top_strength) {
+    html += `<div class="insight-box"><div class="insight-label">Top Strength</div><div class="insight-text">${d.top_strength}</div></div>`;
+  }
+  if (d.priority_improvement) {
+    html += `<div class="insight-box"><div class="insight-label">Priority Improvement</div><div class="insight-text">${d.priority_improvement}</div></div>`;
+  }
+
+  el.innerHTML = html;
+}
+
+// ── speech synthesis ───────────────────────────────────────────────────────────
+let speaking = false;
+function speak(text, callback) {
+  if (!window.speechSynthesis) { if (callback) callback(); return; }
+  window.speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.rate = 0.95;
+  utter.pitch = 1.0;
+  utter.onend = () => { speaking = false; if (callback) callback(); };
+  utter.onerror = () => { speaking = false; if (callback) callback(); };
+  speaking = true;
+  window.speechSynthesis.speak(utter);
+}
+
+// ── screen router ──────────────────────────────────────────────────────────────
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+}
+
+function goSetup() {
+  if (recognition) { try { recognition.stop(); } catch(e) {} }
+  window.speechSynthesis && window.speechSynthesis.cancel();
+  clearTimeout(watchTimer);
+  showScreen('setup');
+}
+</script>
+</body>
+</html>
