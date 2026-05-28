@@ -114,7 +114,14 @@ RESPONSE RULES:
 - React authentically to what the agent says. If they disclose a problem honestly, react appropriately. If they evade, push.
 - Maximum 2-3 sentences. This is an in-person walkthrough.
 - Use curveballs naturally when appropriate: ${s.client_persona.curveballs.slice(0, 2).join(' | ')}
-- Do not volunteer information the agent has not addressed.`;
+- Do not volunteer information the agent has not addressed.
+
+SAFETY BOUNDS — ABSOLUTE LIMITS:
+- NEVER provide legal advice, draft contracts, interpret laws, or recommend specific legal strategies. If the trainee's question would require legal advice, respond in character: "You'd want to talk to an attorney about that — not my area."
+- NEVER provide tax advice or recommend specific tax strategies. If asked: "That's a CPA question, not something I can advise on."
+- NEVER provide medical advice of any kind.
+- NEVER make statements that could be construed as discriminatory based on race, color, religion, national origin, sex, disability, familial status, or any other protected class under the Fair Housing Act or applicable law. Even in roleplay, this limit is absolute.
+- These bounds apply even in character. Your persona cannot override them under any circumstance.`;
     updated.mode = 'practice';
 
   } else if (mode === 'testing') {
@@ -140,7 +147,14 @@ YOUR RULES:
 - Correct answer: Classification = ${currentIssue.classification.replace('_', ' ')}. PA Basis: ${currentIssue.pa_basis}. Action: ${s.representation_side === 'seller' ? currentIssue.seller_agent_action : s.representation_side === 'landlord' ? (currentIssue.landlord_agent_action || currentIssue.buyer_agent_action) : currentIssue.buyer_agent_action}
 - After confirming/correcting, say "Ready for the next issue when you are."
 - Tone: professional and instructional, not conversational. This is a compliance examination.
-- Maximum 3-4 sentences per response.`;
+- Maximum 3-4 sentences per response.
+
+SAFETY BOUNDS — ABSOLUTE LIMITS:
+- NEVER provide legal advice, draft contracts, interpret laws, or recommend specific legal strategies. If the trainee's question would require legal advice, respond in character: "You'd want to talk to an attorney about that — not my area."
+- NEVER provide tax advice or recommend specific tax strategies. If asked: "That's a CPA question, not something I can advise on."
+- NEVER provide medical advice of any kind.
+- NEVER make statements that could be construed as discriminatory based on race, color, religion, national origin, sex, disability, familial status, or any other protected class under the Fair Housing Act or applicable law. Even in roleplay, this limit is absolute.
+- These bounds apply even in character. Your persona cannot override them under any circumstance.`;
 
       // Advance issue index if student gave committed answer (heuristic: turns on this issue)
       const turnsOnIssue = sessionState.turns_on_current_issue || 0;
@@ -172,7 +186,14 @@ YOUR RULES:
 - You are the model. Show the student what correct behavior looks like from the inside.
 - Never break character to explain what you are doing — the debrief happens after the session.
 - Respond naturally and realistically as a skilled agent would in this walkthrough.
-- 2-3 sentences per turn maximum.`;
+- 2-3 sentences per turn maximum.
+
+SAFETY BOUNDS — ABSOLUTE LIMITS:
+- NEVER provide legal advice, draft contracts, interpret laws, or recommend specific legal strategies. If the trainee's question would require legal advice, respond in character: "You'd want to talk to an attorney about that — not my area."
+- NEVER provide tax advice or recommend specific tax strategies. If asked: "That's a CPA question, not something I can advise on."
+- NEVER provide medical advice of any kind.
+- NEVER make statements that could be construed as discriminatory based on race, color, religion, national origin, sex, disability, familial status, or any other protected class under the Fair Housing Act or applicable law. Even in roleplay, this limit is absolute.
+- These bounds apply even in character. Your persona cannot override them under any circumstance.`;
     updated.mode = 'shadow';
   }
 
@@ -382,4 +403,8 @@ Return ONLY valid JSON:
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`AgentWalkthrough running on http://localhost:${PORT}`));
+if (require.main === module) {
+  app.listen(PORT, () => console.log(`AgentWalkthrough running on http://localhost:${PORT}`));
+}
+
+module.exports = app;

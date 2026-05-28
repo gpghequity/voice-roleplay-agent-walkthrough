@@ -1,12 +1,19 @@
-{
-  "name": "voice-roleplay-agent-walkthrough",
-  "version": "1.0.0",
-  "main": "server.js",
-  "scripts": { "start": "node server.js" },
-  "dependencies": {
-    "@anthropic-ai/sdk": "^0.39.0",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2"
-  }
+﻿{
+    "name":  "voice-roleplay-agent-walkthrough",
+    "version":  "1.0.0",
+    "main":  "server.js",
+    "scripts":  {
+                    "start":  "node server.js",
+                    "test":  "vitest run"
+                },
+    "dependencies":  {
+                         "@anthropic-ai/sdk":  "^0.39.0",
+                         "cors":  "^2.8.5",
+                         "dotenv":  "^16.4.5",
+                         "express":  "^4.19.2"
+                     },
+    "devDependencies":  {
+                            "supertest":  "^7.2.2",
+                            "vitest":  "^4.1.7"
+                        }
 }
